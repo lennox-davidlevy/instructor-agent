@@ -1,10 +1,10 @@
 ---
 description: >-
   Subagent that creates and modifies the phased learning TODO file. Invoked
-  by the learning-roadmap skill at Stage 5 for initial creation, and by the
-  instructor agent any time the user asks to add, insert, update, or remove
-  content in the TODO mid-session (e.g. "add a phase," "insert a step,"
-  "update the goal for phase N").
+  by the planner agent (via the learning-roadmap skill) for initial creation,
+  and by the instructor agent for mid-session edits when the user asks to
+  add, insert, update, or remove content in the TODO (e.g. "add a phase,"
+  "insert a step," "update the goal for phase N").
 mode: subagent
 model: anthropic/claude-sonnet-4-6
 permission:

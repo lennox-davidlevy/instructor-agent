@@ -5,9 +5,11 @@ description: Plan a structured learning project with the user. Use this skill wh
 
 # Learning Roadmap
 
-Guide the user through a three-stage conversation to produce a phased learning TODO. Read `references/example-todo.md` now. That file is the target format and granularity for the final output.
+Guide the user through a staged conversation to produce a phased, prescriptive learning TODO. Read `references/example-todo.md` now. That file is the target format and granularity for the final output.
 
-The TODO is not a tutorial. It is a living checklist the user works through independently. Steps are high-level with hints where useful, not step-by-step instructions. The user will research or already know how to execute each item.
+The TODO is the instructor agent's primary reference. The instructor runs on a smaller model and follows this plan one step at a time. The more accurate detail you front-load here — specific commands, expected output, gotchas, the reasoning for ordering — the less real-time reasoning the instructor has to do, and the better the learning experience becomes.
+
+This is not a tutorial the user reads top-to-bottom. It is a working checklist the instructor delivers from. The user is an experienced engineer who will research as they go, but the instructor should never have to guess what a step means or invent a command on the fly.
 
 ---
 
@@ -82,14 +84,39 @@ Pay particular attention to:
 
 ## Stage 4: Fill in the checklist
 
-Write the full TODO phase by phase. For each phase:
+Write the full TODO phase by phase. The output is prescriptive — closer to a lesson plan than a checklist. The instructor needs enough detail in each step to deliver it without inventing specifics.
 
-- Use `### Phase N: <name>` with `**Goal:** <one sentence>` immediately after
-- Steps are `- [ ] **Step name**` with sub-bullets for hints, not instructions
-- Hints include: library names, CLI commands worth knowing, config flags, things easy to get wrong
+### Format
+
+- `### Phase N: <name>` with `**Goal:** <one sentence>` immediately after
+- Steps are `- [ ] **Step name**` with sub-bullets containing the prescriptive detail
 - Mark optional steps with `(Optional)` in the step name
-- Steps should be completable by someone who researches as they go, not someone following a recipe
 - Horizontal rules (`---`) between phases
+
+### What every step needs
+
+For each step, include the relevant items from this list (not all will apply to every step):
+
+- **The specific command(s)** to run. Real commands with real flags, not pseudocode
+- **Required config values** — flag names, env var names, file paths, ports, partition counts, replica counts
+- **What "done" looks like** — expected output, log lines, status checks the user can use to verify
+- **Gotchas** — version-specific behavior, platform quirks (OCP vs. plain K8s), things that look like bugs but aren't, things that fail silently
+- **The reasoning for ordering or choice** — why this step comes before the next one, why this tool over an alternative, why this is intentionally the wrong long-term answer (in problem-first phases)
+
+### Research while writing
+
+Don't write Stage 4 from memory if you're uncertain. Invoke **tech-researcher** when:
+
+- You're about to write a command with specific flags you haven't verified
+- A step depends on version-specific behavior
+- You're inferring an integration pattern rather than recalling a documented one
+- You're writing for a platform combination (e.g., Vault on OpenShift) where the standard docs may not apply
+
+Better to pause and verify than to ship a step that will fail in the instructor's hands.
+
+### Length and density
+
+Each step's sub-bullets typically run 3-8 lines. Less than that usually means underspecified; more than that usually means the step should be split. The example file averages around 5 lines per step.
 
 Present the full draft to the user for review before writing to file.
 
