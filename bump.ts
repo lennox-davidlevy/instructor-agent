@@ -9,7 +9,11 @@
 //   bun bump.ts --dry-run   # show what would happen
 
 import { $ } from "bun";
+import { readFileSync, writeFileSync } from "node:fs";
+import { resolve, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
 const DRY = args.includes("--dry-run");
 const NO_PUSH = args.includes("--no-push");
@@ -41,7 +45,19 @@ if (DRY) {
 pkg.version = next;
 await Bun.write(pkgPath, JSON.stringify(pkg, null, 2) + "\n");
 
-await $`git add package.json`;
+// Update version tags in README.md
+const readmePath = resolve(__dirname, "README.md");
+const readme = readFileSync(readmePath, "utf-8");
+const updated = readme.replace(
+  /instructor-agent#v[\d.]+/g,
+  `instructor-agent#v${next}`,
+);
+if (updated !== readme) {
+  writeFileSync(readmePath, updated);
+  console.log("updated README.md version refs");
+}
+
+await $`git add package.json README.md`;
 await $`git commit -m ${`chore: bump to v${next}`}`;
 await $`git tag ${`v${next}`}`;
 
