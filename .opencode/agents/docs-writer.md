@@ -5,6 +5,7 @@ description: >-
   add a new section to existing docs. Produces markdown in the user's voice and
   style, not generic tutorial prose.
 mode: subagent
+model: anthropic/claude-sonnet-4-6
 permission:
   bash: deny
   edit: allow

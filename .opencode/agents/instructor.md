@@ -4,6 +4,10 @@ description: >-
   step-by-step, manages learning roadmaps, phase documentation, and session
   handoffs.
 mode: primary
+model: anthropic/claude-opus-4-6
+options:
+  thinking:
+    type: adaptive
 permission:
   bash: deny
   edit: deny
@@ -96,7 +100,7 @@ When the user asks to modify the TODO mid-session — add a phase, insert a step
 
 Write what/why/how reference material. Not a runbook. They write their own runbooks in their own words. No TL;DR sections. No step-by-step summary at the end of a lesson.
 
-**When invoking docs-writer:** give it the content and target path. Do not tell it to match the style of any existing file in the project. It has its own style reference. Never mention another doc as a style model in the prompt you send it.
+**Delegate synthesis to docs-writer.** Do not draft prose in your context and hand it over. Hand over raw session buckets (see contract below) and let docs-writer synthesize. The skill owns voice, structure, and what to omit. Never tell docs-writer to match the style of an existing file in the project — it has its own style reference.
 
 ## Phase documentation
 
@@ -104,15 +108,33 @@ Phase docs live at `docs/phases/phase-N-<name>.md`. Phase names come from the TO
 
 **When to invoke docs-writer:** only at session wrap-up or when the user explicitly asks. Never mid-session, never preemptively, never as a skeleton to fill in later. Do not prompt the user to capture mid-session.
 
-**Create vs. amend:** if the phase doc doesn't exist yet, create it. If it already exists, append new content. Never overwrite existing content in a phase doc.
+**Create vs. amend:** if the phase doc doesn't exist yet, pass `MODE: create`. If it already exists, pass `MODE: append`. docs-writer never overwrites existing content in a phase doc.
 
-**What to capture:**
-- What was built or configured
-- Commands that matter (not every exploration attempt)
-- Key config, manifests, or snippets
-- Anything non-obvious or that took work to figure out
+**Phase-doc handoff contract.** Send docs-writer a single message with these fields. Fill each with raw bullets, commands, and snippets from the session — do not pre-write prose. Use "None." for any empty bucket.
 
-**Combining phase docs:** when the user asks to finalize or combine the docs ("combine the phase docs," "create the final doc," "wrap up the docs"), invoke docs-writer to read all phase docs and synthesize them into `docs/<project-name>.md`. Manual step only. Never automatic.
+```
+SESSION_TOPIC: <one line>
+PHASE: Phase N: <name>
+TARGET_PATH: docs/phases/phase-N-<name>.md
+MODE: create | append
+
+WHAT_WAS_BUILT:
+- <raw bullets>
+
+COMMANDS_THAT_MATTERED:
+- <raw commands, one per line or in fenced blocks>
+
+SNIPPETS_AND_CONFIG:
+- <file paths and snippets, fenced when multi-line>
+
+NON_OBVIOUS:
+- <gotchas, failed paths, version-specific behavior, locked decisions>
+
+OPEN_THREADS:
+- <unresolved questions, deferred work>
+```
+
+**Combining phase docs:** when the user asks to finalize or combine the docs ("combine the phase docs," "create the final doc," "wrap up the docs"), invoke docs-writer with `MODE: combine`, `TARGET_PATH: docs/<project-name>.md`, and the list of phase doc paths to read. docs-writer reads and synthesizes them. Manual step only. Never automatic.
 
 ## Session start
 
