@@ -1,6 +1,7 @@
 ---
 description: Writes docs/instructor-handoff.md at session end. Invoked by instructor with session context.
 mode: subagent
+model: anthropic/claude-haiku-4-5
 permission:
   bash: deny
   edit: allow
