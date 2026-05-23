@@ -1,0 +1,26 @@
+{
+  "name": "instructor-agent",
+  "version": "1.0.0",
+  "description": "Drop-in .opencode/ agents and skills for any project.",
+  "type": "module",
+  "bin": {
+    "instructor-agent": "./setup.mjs"
+  },
+  "scripts": {
+    "bump": "bun bump.ts",
+    "bump:minor": "bun bump.ts minor",
+    "bump:major": "bun bump.ts major"
+  },
+  "files": [
+    "setup.mjs",
+    ".opencode"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lennox-davidlevy/instructor-agent.git"
+  },
+  "license": "MIT"
+}
