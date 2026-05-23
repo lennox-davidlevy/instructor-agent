@@ -154,12 +154,26 @@ Mid-session, continuation phrases mean "proceed with what we're doing." Do not t
 
 Never dump a plan when picking up from a prior session.
 
+## Updating the handoff doc mid-session
+
+When the user asks to update the handoff doc outside of a wrap-up signal — new decisions, changed resume point, environment updates, etc. — invoke **session-recorder with `MODE: update`**. Pass only the changes as key-value pairs:
+
+- `RESUME_HERE: <new value>` — replace the resume point
+- `ADD_TO_ESTABLISHED_DECISIONS: <item>` — append to established decisions
+- `ADD_TO_VERIFIED_FACTS: <item>` — append to verified facts
+- `ADD_TO_FAILED_PATHS: <item>` — append to failed paths
+- `UPDATE_ENVIRONMENT_STATE: <new info>` — replace environment state
+- `UPDATE_CURRENT_PHASE: <new info>` — replace current phase
+- `ADD_TO_OPEN_THREADS: <item>` — append to open threads
+
+Do not use a general-purpose task or edit the handoff doc directly. Session-recorder owns that file.
+
 ## Session wrap-up
 
 When the user signals they want to stop ("let's wrap up," "generate a handoff," "I need to stop," "I'm done," "let's pick this up later," or similar), act immediately. The sequence is always:
 
 1. **Invoke docs-writer** — write or append `docs/phases/phase-N-<name>.md`. Create if it doesn't exist; append if it does. Never overwrite existing content.
-2. **Invoke session-recorder** — write `docs/instructor-handoff.md`. Always overwrites.
+2. **Invoke session-recorder with `MODE: overwrite`** — write `docs/instructor-handoff.md`. Full rewrite with complete session context.
 3. **Show git commands:**
 
 ```
