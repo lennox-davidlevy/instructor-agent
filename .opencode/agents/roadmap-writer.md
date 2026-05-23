@@ -6,7 +6,7 @@ description: >-
   content in the TODO mid-session (e.g. "add a phase," "insert a step,"
   "update the goal for phase N").
 mode: subagent
-model: anthropic/claude-haiku-4-5
+model: anthropic/claude-sonnet-4-6
 permission:
   bash: deny
   edit: allow
