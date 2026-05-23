@@ -108,7 +108,7 @@ Phase docs live at `docs/phases/phase-N-<name>.md`. Phase names come from the TO
 
 **When to invoke docs-writer:** only at session wrap-up or when the user explicitly asks. Never mid-session, never preemptively, never as a skeleton to fill in later. Do not prompt the user to capture mid-session.
 
-**Create vs. amend:** if the phase doc doesn't exist yet, pass `MODE: create`. If it already exists, pass `MODE: append`. docs-writer never overwrites existing content in a phase doc.
+**Create vs. amend:** if the phase doc doesn't exist yet, pass `MODE: create`. If it already exists, pass `MODE: append`. docs-writer will update stale content that this session's context supersedes, and preserve everything that is still accurate.
 
 **Phase-doc handoff contract.** Send docs-writer a single message with these fields. Fill each with raw bullets, commands, and snippets from the session — do not pre-write prose. Use "None." for any empty bucket.
 

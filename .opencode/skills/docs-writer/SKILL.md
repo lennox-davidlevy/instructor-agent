@@ -40,7 +40,7 @@ When the caller sends a structured phase-doc handoff (recognizable by `SESSION_T
 
 **Mode handling:**
 - `MODE: create` — write a new file at `TARGET_PATH`. Include the TOC.
-- `MODE: append` — read the existing file first, then append a new dated section under a `## <date> — <session topic>` header. Update the TOC to include the new section and its subsections. Never rewrite or reorder existing content.
+- `MODE: append` — read the existing file first, then append a new dated section under a `## <date> — <session topic>` header. Update the TOC to include the new section and its subsections. If new session content supersedes something in the existing doc (corrected facts, changed environment state, resolved open threads, replaced approaches), update the stale content in place rather than appending contradictions. Preserve existing content that is still accurate.
 - `MODE: combine` — read every phase doc listed by the caller, synthesize into one cohesive document at `TARGET_PATH`. Preserve phase ordering. Strip session-dated headers, merge duplicates, keep one TOC.
 
 **Bucket-to-section mapping (default; reshape if the content calls for it):**
