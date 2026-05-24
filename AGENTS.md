@@ -44,6 +44,40 @@ node /path/to/instructor-agent/setup.mjs --force   # overwrite existing files
 - **`bump.ts` requires `bun`.** It uses `Bun.file()`, `Bun.write()`, and `bun:shell` (`$`). It cannot run under plain Node.
 - **`setup.mjs` requires Node >= 18.** It's the CLI entrypoint via `bunx`/`npx` and uses only `node:fs` and `node:path` — no Bun APIs.
 
+## Agent architecture
+
+The system uses a **cheap orchestrator, expensive specialists** pattern. Two primary agents handle different phases of a learning project, with subagents providing specialized capabilities.
+
+### Primary agents (user switches between these with Tab)
+
+| Agent | Model | Purpose |
+|-------|-------|---------|
+| **instructor** (default) | Sonnet 4.6 | Daily driver. Follows the plan, delivers one step at a time, delegates to subagents. Handles session start/wrap-up. |
+| **planner** | Opus 4.6 | Architect. Runs once per project to create a detailed lesson plan via the learning-roadmap skill. Returns for replanning. |
+
+### Subagents (invoked by primary agents or via @mention)
+
+| Agent | Model | Purpose |
+|-------|-------|---------|
+| **advisor** | Opus 4.6 | Escalation. Invoked by the instructor for complex debugging, architecture questions, or off-script situations. |
+| **code-reviewer** | Opus 4.6 | Reviews user code in learning context. Calibrates for intentionally wrong steps. |
+| **docs-writer** | Sonnet 4.6 | Writes phase documentation. Owns voice and structure. |
+| **roadmap-writer** | Sonnet 4.6 | Writes/edits the TODO file. Called by planner (initial creation) and instructor (mid-session edits). |
+| **session-recorder** | Haiku 4.5 | Writes/updates the handoff doc for session continuity. |
+| **tech-researcher** | Sonnet 4.6 | Fetches authoritative external docs. Used during both planning and instruction. |
+
+### Built-in agent overrides (in opencode.json)
+
+| Agent | Model | Rationale |
+|-------|-------|-----------|
+| **build** | Opus 4.6 | Writes code autonomously — needs strong reasoning. |
+| **plan** | Sonnet 4.6 | Built-in analysis agent. Heavy planning is handled by the custom planner agent. |
+| **explore** | Haiku 4.5 | Fast, read-only codebase search. |
+
+### Design rationale
+
+Opus runs where it has the most leverage: planning (once, upfront), escalation (on demand), code review (needs deep reasoning), and autonomous code writing (build). The instructor handles 95%+ of user messages on Sonnet, which is sufficient for following a well-structured plan and delivering step-by-step instruction. The intelligence is concentrated at high-leverage decision points, not on routine delivery.
+
 ## Editing the payload
 
 All agent and skill content lives under `.opencode/`. When editing:
