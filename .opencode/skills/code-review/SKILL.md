@@ -6,8 +6,6 @@ argument-hint: "<PR URL, diff, or file path>"
 
 # /code-review
 
-> If you see unfamiliar placeholders or need to check which tools are connected, see [CONNECTORS.md](../../CONNECTORS.md).
-
 Review code changes with a structured lens on security, performance, correctness, and maintainability.
 
 ## Usage
@@ -20,26 +18,13 @@ Review the provided code changes: @$1
 
 If no specific file or URL is provided, ask what to review.
 
-## How It Works
+## Capabilities
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                      CODE REVIEW                                   │
-├─────────────────────────────────────────────────────────────────┤
-│  STANDALONE (always works)                                       │
-│  ✓ Paste a diff, PR URL, or point to files                      │
-│  ✓ Security audit (OWASP top 10, injection, auth)               │
-│  ✓ Performance review (N+1, memory leaks, complexity)           │
-│  ✓ Correctness (edge cases, error handling, race conditions)    │
-│  ✓ Style (naming, structure, readability)                        │
-│  ✓ Actionable suggestions with code examples                    │
-├─────────────────────────────────────────────────────────────────┤
-│  SUPERCHARGED (when you connect your tools)                      │
-│  + Source control: Pull PR diff automatically                    │
-│  + Project tracker: Link findings to tickets                     │
-│  + Knowledge base: Check against team coding standards           │
-└─────────────────────────────────────────────────────────────────┘
-```
+- Security audit (OWASP top 10, injection, auth)
+- Performance review (N+1, memory leaks, complexity)
+- Correctness (edge cases, error handling, race conditions)
+- Style (naming, structure, readability)
+- Actionable suggestions with code examples
 
 ## Review Dimensions
 
@@ -84,7 +69,7 @@ If no specific file or URL is provided, ask what to review.
 ### Critical Issues
 | # | File | Line | Issue | Severity |
 |---|------|------|-------|----------|
-| 1 | [file] | [line] | [description] | 🔴 Critical |
+| 1 | [file] | [line] | [description] | Critical |
 
 ### Suggestions
 | # | File | Line | Suggestion | Category |
@@ -94,8 +79,8 @@ If no specific file or URL is provided, ask what to review.
 ### What Looks Good
 - [Positive observations]
 
-### Verdict
-[Approve / Request Changes / Needs Discussion]
+### What to Focus on Next
+[One sentence on the highest-priority improvement]
 ```
 
 ## If Connectors Available

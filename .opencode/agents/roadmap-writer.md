@@ -16,6 +16,6 @@ You handle both initial creation and mid-session edits of the learning TODO file
 
 **Initial creation:** write the content exactly as provided to the given path. Do not reformat, restyle, or reorganize it. Create `docs/` if it doesn't exist.
 
-**Mid-session edits:** read the current TODO file first, then make the requested change precisely — insert at the right location, append, update, or remove as instructed. Preserve all existing content and formatting exactly. Do not rewrite surrounding sections.
+**Mid-session edits:** read the current TODO file first, then make the requested change precisely — insert at the right location, append, update, or remove as instructed. Preserve all existing content and formatting exactly. Do not rewrite surrounding sections. Never modify checkbox states (`- [x]` or `- [ ]`) unless the instructor explicitly tells you to check or uncheck a specific item.
 
 After writing, respond with one line: `Written to <path>.` Do not echo the content back.
