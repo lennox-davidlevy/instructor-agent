@@ -30,6 +30,8 @@ At the end of every `##` section, before the `---`:
 
 **No step numbers in headers.** `## Add the Helm repo`, not `## Step 2: Add the Helm repo`.
 
+**Every runnable command gets its own `\`\`\`sh` block.** Never put a command the user would run inside inline backticks or prose. Single-line or multi-line, it gets a fenced block. Use `\`\`\`sh` for shell commands. Use a plain `\`\`\`` (no language tag) for config file content, command output, or multi-command blocks that contain `# comments`. Inline backticks are only for paths, flag names, and values mentioned in prose.
+
 **Verbosity ceiling.** No prose section exceeds 3 sentences. Code blocks don't count. If you're over 3 sentences, cut.
 
 **Self-check before outputting.** Ask: is this more elaborate or longer than the reference for equivalent content? If yes, rewrite until it matches.

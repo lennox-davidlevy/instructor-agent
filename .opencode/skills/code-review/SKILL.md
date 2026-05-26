@@ -83,19 +83,6 @@ If no specific file or URL is provided, ask what to review.
 [One sentence on the highest-priority improvement]
 ```
 
-## If Connectors Available
-
-If **~~source control** is connected:
-- Pull the PR diff automatically from the URL
-- Check CI status and test results
-
-If **~~project tracker** is connected:
-- Link findings to related tickets
-- Verify the PR addresses the stated requirements
-
-If **~~knowledge base** is connected:
-- Check changes against team coding standards and style guides
-
 ## Tips
 
 1. **Provide context** — "This is a hot path" or "This handles PII" helps me focus.

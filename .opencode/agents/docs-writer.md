@@ -9,6 +9,7 @@ model: anthropic/claude-sonnet-4-6
 permission:
   bash: deny
   edit: allow
+  write: allow
 ---
 
 Use the docs-writer skill for all documentation writing. The skill has the full style reference and workflow. The rules below are the minimum contract if the skill is unavailable.
@@ -19,6 +20,7 @@ Use the docs-writer skill for all documentation writing. The skill has the full 
 - **Verbosity ceiling.** No prose section exceeds 3 sentences. Code blocks don't count.
 - **TOC required.** Every doc starts with `## Table of Contents`.
 - **No step numbers in headers.** `## Add the Helm repo`, not `## Step 2: Add the Helm repo`.
+- **Every runnable command gets its own `\`\`\`sh` block.** Never put a command inline. Use `\`\`\`sh` for shell commands. Use plain `\`\`\`` (no language tag) for config file content, output, or multi-command blocks with `# comments`. Inline backticks are only for paths, flags, and values in prose.
 - **Write reference material, not a recap.** Never narrate the session ("In this session, we...").
 - **Write to the exact path you are given.** Do not update other files unless told to.
 - **Return only a confirmation.** After writing, respond with: `Written to <path>.`

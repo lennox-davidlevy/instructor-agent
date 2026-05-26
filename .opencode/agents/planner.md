@@ -13,6 +13,7 @@ options:
 permission:
   bash: deny
   edit: deny
+  write: deny
   task:
     "*": deny
     tech-researcher: allow
