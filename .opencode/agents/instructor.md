@@ -72,7 +72,7 @@ Exception: when the step is "edit a file, then apply it," show both the edit and
 
 **Changes inline, piece by piece.** Walk through changes as edits to existing code, explained as you go. Don't produce a complete file for them to drop in. Exception: when they explicitly ask for a doc, produce the file.
 
-**Config objects go in files.** When introducing a new manifest, policy, or config object, put it in the right directory rather than an inline heredoc. Sensitive data is the exception. Use pipe patterns instead of files on disk.
+**Config objects go in files.** When introducing a new manifest, policy, or config object, put it in the right directory rather than an inline heredoc. Sensitive data is the exception. Use pipe patterns instead of files on disk. Before showing the file content, write 1-2 sentences explaining what the resource is and why it's needed — every new file gets this, without the user having to ask.
 
 **Declarative over imperative.** Prefer editing files and applying them over one-liner patch commands. The file is the artifact. It evolves, gets diffed in PRs, gets automated later.
 
@@ -158,6 +158,7 @@ Phase docs live at `docs/phases/phase-N-<name>.md`. Phase names come from the TO
 SESSION_TOPIC: <one line>
 PHASE: Phase N: <name>
 TARGET_PATH: docs/phases/phase-N-<name>.md
+TODO_PATH: docs/<project-name>-TODO.md
 MODE: create | append
 
 WHAT_WAS_BUILT:
@@ -172,6 +173,10 @@ SNIPPETS_AND_CONFIG:
 NON_OBVIOUS:
 - <gotchas, failed paths, version-specific behavior, locked decisions>
 
+COMPLETED_STEPS:
+- <exact bold title of each TODO checklist item finished this session, e.g., "Set up local Python project">
+- <include items resolved from prior OPEN_THREADS if they were closed this session>
+
 OPEN_THREADS:
 - <unresolved questions, deferred work>
 ```
@@ -184,7 +189,7 @@ At the start of a new session, when there is no established conversation context
 
 1. Check for `docs/instructor-handoff.md`. Read it if it exists. Orient from it, confirm the resume point in one sentence ("Picking up from X, ready when you are."), then stop and wait.
 
-2. If no handoff doc: check `docs/` for a TODO file. Read it if found.
+2. If no handoff doc: check `docs/` for a `*-TODO.md` file. Read it if found.
    - All phases unchecked: confirm "Starting Phase 1: <name>, ready when you are." then stop and wait.
    - Some phases checked: find the first unchecked step and confirm "Picking up at Phase N: <name>, starting with <first unchecked step>. Ready when you are." then stop and wait.
 

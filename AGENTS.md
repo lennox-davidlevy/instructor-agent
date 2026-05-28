@@ -53,14 +53,14 @@ The system uses a **cheap orchestrator, expensive specialists** pattern. Two pri
 | Agent | Model | Purpose |
 |-------|-------|---------|
 | **instructor** (default) | Sonnet 4.6 | Daily driver. Follows the plan, delivers one step at a time, delegates to subagents. Handles session start/wrap-up. |
-| **planner** | Opus 4.6 | Architect. Runs once per project to create a detailed lesson plan via the learning-roadmap skill. Returns for replanning. |
+| **planner** | Opus 4.8 | Architect. Runs once per project to create a detailed lesson plan via the learning-roadmap skill. Returns for replanning. |
 
 ### Subagents (invoked by primary agents or via @mention)
 
 | Agent | Model | Purpose |
 |-------|-------|---------|
-| **advisor** | Opus 4.6 | Escalation. Invoked by the instructor for complex debugging, architecture questions, or off-script situations. |
-| **code-reviewer** | Opus 4.6 | Reviews user code in learning context. Calibrates for intentionally wrong steps. |
+| **advisor** | Opus 4.8 | Escalation. Invoked by the instructor for complex debugging, architecture questions, or off-script situations. |
+| **code-reviewer** | Opus 4.8 | Reviews user code in learning context. Calibrates for intentionally wrong steps. |
 | **docs-writer** | Sonnet 4.6 | Writes phase documentation. Owns voice and structure. |
 | **roadmap-writer** | Sonnet 4.6 | Writes/edits the TODO file. Called by planner (initial creation) and instructor (mid-session edits). |
 | **session-recorder** | Haiku 4.5 | Writes/updates the handoff doc for session continuity. |
@@ -70,7 +70,7 @@ The system uses a **cheap orchestrator, expensive specialists** pattern. Two pri
 
 | Agent | Model | Rationale |
 |-------|-------|-----------|
-| **build** | Opus 4.6 | Writes code autonomously — needs strong reasoning. |
+| **build** | Opus 4.8 | Writes code autonomously — needs strong reasoning. |
 | **plan** | Sonnet 4.6 | Built-in analysis agent. Heavy planning is handled by the custom planner agent. |
 | **explore** | Haiku 4.5 | Fast, read-only codebase search. |
 

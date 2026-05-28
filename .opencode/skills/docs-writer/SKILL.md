@@ -58,7 +58,19 @@ When the caller sends a structured phase-doc handoff (recognizable by `SESSION_T
 - A bucket marked "None." produces no section. Do not write "Nothing to report here."
 - If a bucket is thin (one trivial item), fold it into an adjacent section rather than giving it its own heading.
 
+**TODO update (when `TODO_PATH` is provided):**
+
+After writing the phase doc, read the file at `TODO_PATH` and apply two kinds of edits:
+
+1. **Check off completed steps.** For each item in `COMPLETED_STEPS`, find the matching `- [ ] **<title>**` line and change `[ ]` to `[x]`. Match on the bold title text exactly as written. If a title doesn't match any unchecked item, skip it silently.
+
+2. **Mark superseded open threads.** If `MODE: append` caused you to update stale content in the phase doc (corrected facts, resolved open threads, replaced approaches), scan the TODO's `OPEN_THREADS` section for the matching thread and mark it resolved by appending ` — resolved` to the bullet.
+
+Edit the TODO file directly using the edit tool. Do not reformat or touch any other content.
+
 **What not to do:**
 - Do not ask the caller for clarification. Synthesize from what you were given.
 - Do not invent details to fill gaps. If a bucket is empty, the section is empty.
 - Do not narrate the session ("In this session, we..."). Write reference material, not a recap.
+
+**Confirmation line:** If a TODO update was made, end with: `Written to <phase-doc-path> and updated <todo-path>.` Otherwise: `Written to <phase-doc-path>.`

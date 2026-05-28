@@ -5,7 +5,7 @@ description: >-
   situations where deeper analysis is needed. Pass the full context of the
   problem and what has been tried.
 mode: subagent
-model: anthropic/claude-opus-4-6
+model: anthropic/claude-opus-4-8
 options:
   thinking:
     type: adaptive

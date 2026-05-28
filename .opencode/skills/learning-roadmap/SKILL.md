@@ -124,6 +124,6 @@ Present the full draft to the user for review before writing to file.
 
 ## Stage 5: Write to file
 
-Ask the user where to save the file. If they don't have a preference, default to `docs/<project-name>.md` in the current working directory.
+Save to `docs/<project-name>-TODO.md` in the current working directory. The `-TODO.md` suffix is required — it distinguishes the checklist from phase docs and lets the instructor find it by glob. Example: `docs/confluent-hashi-learning-TODO.md`. Do not ask the user for a path.
 
 Invoke **roadmap-writer** with the composed content and the target path. Do not write the file directly.

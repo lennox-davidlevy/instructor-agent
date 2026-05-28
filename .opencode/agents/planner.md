@@ -6,7 +6,7 @@ description: >-
   produce a detailed phased TODO. Switch to this agent (Tab key) when you
   need to plan or replan.
 mode: primary
-model: anthropic/claude-opus-4-6
+model: anthropic/claude-opus-4-8
 options:
   thinking:
     type: adaptive

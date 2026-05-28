@@ -30,3 +30,11 @@ Use the docs-writer skill for all documentation writing. The skill has the full 
 - `MODE: create` — new file at the given path. Include TOC.
 - `MODE: append` — read existing file first, append a new dated section, update the TOC. If new content supersedes existing content, update the stale parts in place.
 - `MODE: combine` — read every phase doc listed by the caller, synthesize into one cohesive document at the given path.
+
+## TODO update (when handoff includes `TODO_PATH`)
+
+After writing the phase doc, read the TODO file and:
+1. Change `- [ ]` to `- [x]` for every item whose bold title appears in `COMPLETED_STEPS`.
+2. If `MODE: append` caused stale content to be updated in the phase doc, append ` — resolved` to the matching bullet in the TODO's open-threads section.
+
+Edit the TODO directly. Do not reformat surrounding content. If `TODO_PATH` was given, end the confirmation with: `Written to <phase-doc-path> and updated <todo-path>.`
