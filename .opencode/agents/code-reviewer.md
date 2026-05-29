@@ -6,7 +6,7 @@ description: >-
   current phase and its goal, and any steps that are intentionally wrong
   (e.g., hardcoded secrets, no error handling) as part of the learning design.
 mode: subagent
-model: anthropic/claude-opus-4-8
+model: anthropic/claude-opus-4-6
 options:
   thinking:
     type: adaptive
