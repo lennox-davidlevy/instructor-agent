@@ -21,9 +21,11 @@
 
 - [ ] **Write local producer (`producer.py`)**
   - Config dict needs: `bootstrap.servers`, `security.protocol=SASL_SSL`, `sasl.mechanisms=PLAIN`, `sasl.username=<api-key>`, `sasl.password=<api-secret>`
+  - `SASL_SSL` (not `PLAINTEXT` or `SASL_PLAINTEXT`): Confluent Cloud terminates TLS at the broker and rejects unencrypted connections. `PLAIN` mechanism sends the API key/secret over the (now-encrypted) channel.
   - Generate fake transactions with `faker`: `card_id`, `amount` (use `faker.pyfloat(positive=True, max_value=5000)`), `merchant`, `timestamp` (ISO 8601), `lat`, `lon`
   - Serialize as JSON, encode to bytes before producing
   - Call `producer.produce()` then `producer.poll(0)` each iteration; `producer.flush()` before exit
+  - `poll(0)` after every `produce()` is non-obvious: `produce()` is async and queues to an internal buffer. Without `poll()`, delivery callbacks never fire and the buffer can overflow silently. `flush()` blocks until all queued messages are delivered, so it's required before exit.
   - Sleep 1 second between messages to keep the rate observable
   - Expected: messages appear in Confluent UI under topic → Messages tab within a few seconds
 

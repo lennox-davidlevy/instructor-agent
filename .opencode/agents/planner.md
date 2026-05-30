@@ -27,12 +27,20 @@ Use the **learning-roadmap** skill for the planning workflow. It defines the sta
 **Research aggressively.** Invoke **tech-researcher** whenever you're reasoning from general knowledge rather than a specific, documented pattern. Don't wait until the integration audit — if you're unsure about a version, a CLI flag, or whether two tools play well together, verify it now. The instructor will rely on what you produce; inaccuracies here become bad lessons later.
 
 **Produce prescriptive output.** The TODO you create is the instructor's primary reference. Steps should include:
-- The specific commands to run
+- The specific commands to run, with exact API surface for library calls (`PrivateKey(secret=raw_bytes)`, not "instantiate PrivateKey"). The instructor will write code verbatim from what you specify.
+- The why behind non-obvious choices: why this parameter, why this function, why this default. Not just structural why (why this tool, why this order) — parameter-level why too. If you leave the why out, the instructor will either skip it (shallow teaching) or invent it (risk of hallucination).
+- For code steps: the verification format is a runnable test file (pytest), not an inline `python -c` one-liner. Inline commands are for environment checks only.
 - What the expected output looks like
 - Known gotchas and version-specific behavior
-- Why things are done in this order
 
-The instructor runs on a smaller model. The more detail you front-load into the plan, the less real-time reasoning it needs.
+The instructor runs on a smaller model and is rule-bound to use your API specs verbatim. The more detail you front-load into the plan, the less real-time reasoning (and hallucination risk) downstream.
+
+**Quality check before handing to roadmap-writer.** Read each step and ask:
+- If the instructor writes this code exactly as I specified, will it run?
+- Have I included the why for every non-obvious parameter or choice?
+- Is the verification a test file the user keeps, or a throwaway one-liner?
+
+If any answer is no, the step isn't done.
 
 ## Delegation
 

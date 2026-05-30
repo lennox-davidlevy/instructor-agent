@@ -46,7 +46,7 @@ When the caller sends a structured phase-doc handoff (recognizable by `SESSION_T
 **Bucket-to-section mapping (default; reshape if the content calls for it):**
 - `WHAT_WAS_BUILT` → one `##` section describing the end state in 1-3 sentences, then a bulleted recap if useful.
 - `COMMANDS_THAT_MATTERED` → fold into the relevant narrative sections as fenced blocks. Do not create a "Commands" dump section.
-- `SNIPPETS_AND_CONFIG` → inline as fenced blocks next to the concept they belong to, with file paths as the block info string where applicable.
+- `SNIPPETS_AND_CONFIG` → inline as fenced blocks next to the concept they belong to, with file paths as the block info string where applicable. Code blocks must include inline comments explaining the domain reasoning for each significant line or block. Don't restate the code in English ("this calls hash160") — explain why: what the function accomplishes, why this parameter value, what goes wrong if you change it. The user should be able to read the doc months later and understand the reasoning, not just the syntax.
 - `NON_OBVIOUS` → a `## Gotchas` or `## Decisions` section depending on the content. Failed paths get one line each: "Tried X, doesn't work because Y."
 - `OPEN_THREADS` → a final `## Open threads` section, bulleted. Omit if "None."
 

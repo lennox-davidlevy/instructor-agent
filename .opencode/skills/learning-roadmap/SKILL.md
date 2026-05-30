@@ -97,11 +97,15 @@ Write the full TODO phase by phase. The output is prescriptive — closer to a l
 
 For each step, include the relevant items from this list (not all will apply to every step):
 
-- **The specific command(s)** to run. Real commands with real flags, not pseudocode
+- **The specific command(s)** to run. Real commands with real flags, not pseudocode. For library calls, specify the exact API surface: `coincurve.PrivateKey(secret=raw_bytes)`, not "instantiate a PrivateKey." The instructor must be able to write the code verbatim from the TODO without consulting external docs.
 - **Required config values** — flag names, env var names, file paths, ports, partition counts, replica counts
+- **The why behind non-obvious choices** — why this parameter and not its alternative, why this library function and not another, why this default value matters. Required for every step that introduces a new API or domain concept. If the instructor would have to invent the reasoning to teach the step, the TODO is underspecified.
+  - Bad: "Generate 32 random bytes with `os.urandom(32)`"
+  - Good: "Generate 32 random bytes with `os.urandom(32)` — pulls from the OS entropy pool. Never use `random` module here; it's seeded and predictable, and a predictable private key means anyone can derive your public key."
+- **Verification format** — for steps that write code, the verification should be a runnable test file (e.g., `tests/test_keys.py` with pytest) committed alongside the code, not an inline `python -c "..."` one-liner. Inline commands are appropriate only for environment checks ("is the library installed?"). Behavioral verification of code under construction belongs in a test file the user keeps.
 - **What "done" looks like** — expected output, log lines, status checks the user can use to verify
 - **Gotchas** — version-specific behavior, platform quirks (OCP vs. plain K8s), things that look like bugs but aren't, things that fail silently
-- **The reasoning for ordering or choice** — why this step comes before the next one, why this tool over an alternative, why this is intentionally the wrong long-term answer (in problem-first phases)
+- **The reasoning for ordering or structural choices** — why this step comes before the next one, why this tool over an alternative, why this is intentionally the wrong long-term answer (in problem-first phases)
 
 ### Research while writing
 
