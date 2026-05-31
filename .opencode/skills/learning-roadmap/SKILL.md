@@ -59,9 +59,23 @@ Propose phase names and goal statements only, no checklist detail yet. Structure
 - Each phase has a single clear goal (one sentence, starts with a verb)
 - Complexity builds deliberately. Earlier phases set up problems that later phases solve
 - Technologies are introduced one at a time where possible, not all at once
-- The final phase is always a polish/rebuild phase: "prove you understand it by rebuilding from your own docs"
+- Leave the final phase as a placeholder named "Capstone (TBD)" — its shape is chosen in Stage 3.5, not assumed here
 
 Present the phase list to the user. Wait for approval, modifications, or reordering before proceeding.
+
+---
+
+## Stage 3.5: Choose the capstone
+
+The final phase is what the user does once the core build works. Its purpose is to convert the project from a finished exercise into something with lasting value. Don't assume which shape they want — present the three options below with their one-line trade-offs and your recommendation, then wait for the user to pick.
+
+- **Reusable asset / template:** parameterize what they built into a starter they can spin new projects from — extract config, document the variables, strip project-specific details, leave a "fork and fill in" scaffold. Best when the user expects to build similar things repeatedly and wants leverage, not just understanding.
+- **Real app:** harden the build toward production — error handling, observability, CI/CD, real domain/TLS, scaling, security review. Best when the project is something they actually want to keep running and use.
+- **Tear down and rebuild:** delete everything and rebuild from their own docs, fixing the docs whenever they get stuck. The strongest proof of understanding, but produces nothing reusable. Best when the goal is purely learning and the user wants to verify mastery.
+
+Recommend based on the end state captured in Stage 2 (purely-learning → tear down and rebuild; demo they'll keep → real app; "I'll build more like this" → reusable asset). State your recommendation, but let the user choose.
+
+Once chosen, name the final phase accordingly and design it around that shape in Stage 4. See `references/example-todo.md` for a worked final phase of each type.
 
 ---
 

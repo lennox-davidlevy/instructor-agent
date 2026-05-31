@@ -141,8 +141,70 @@
 
 ---
 
-### Phase 9: Polish
-**Goal:** Prove you understand it by being able to rebuild it without your own help.
+### Phase 9: Capstone
+
+The final phase is chosen in Stage 3.5. Pick exactly one of the three shapes below — do not include all three in a real plan. Each is shown here as a format reference.
+
+---
+
+#### Option A — Capstone: Reusable template
+**Goal:** Turn the build into a parameterized starter you can spin new projects from.
+
+- [ ] **Extract project-specific values into variables**
+  - Identify everything hardcoded to "fraud-detection": namespace names, topic names, image repo paths, Vault paths, policy names
+  - Replace with placeholders driven by a single `template.env` (e.g. `PROJECT_NAME`, `TOPIC_PRIMARY`, `QUAY_USER`, `VAULT_KV_PATH`)
+  - Goal: a new project should require editing one file, not grepping the tree
+
+- [ ] **Parameterize the manifests**
+  - Convert the Kustomize base into a reusable base + per-project overlay; the overlay carries only the `template.env`-derived values
+  - Or, if you prefer Helm, extract a chart with a `values.yaml` exposing the same variables
+  - Keep the intentionally-correct Vault wiring from Phase 3 as the default — the template should be secure out of the box
+
+- [ ] **Write a generator or bootstrap script**
+  - `./new-project.sh <project-name>` that copies the scaffold, runs the placeholder substitution, and prints the next manual steps (cluster creds, Quay repo creation)
+  - Fail loudly if `template.env` has unfilled placeholders — a half-substituted project is worse than none
+
+- [ ] **Document the template contract**
+  - README section: what each variable means, what you must provide externally (Confluent cluster, Quay repos, Vault), and what the template provides
+  - One worked example: instantiate a second, differently-named project from the template end to end to prove it generalizes
+
+- [ ] **Validate by building something new from it**
+  - Stand up a second app (e.g. `order-events`) from the template alone, changing only `template.env`
+  - If you have to touch anything outside the variable file, that thing should have been a variable — fix the template
+
+---
+
+#### Option B — Capstone: Real app
+**Goal:** Harden the build toward something you'd actually keep running.
+
+- [ ] **Add structured logging and health checks**
+  - Replace `print` with structured JSON logging (`structlog`); include `card_id` and partition in each record for traceability
+  - Add `/healthz` (liveness) and `/readyz` (readiness — fails until the Confluent connection is established) endpoints; wire them into the Deployment probes
+  - Gotcha: readiness must actually check the Kafka client, not return 200 unconditionally, or OCP will route traffic to a pod that can't produce
+
+- [ ] **Add CI/CD**
+  - GitHub Actions: build both images, tag with the git SHA (never `latest`), push to Quay on merge to `main`
+  - Add a manifest-update step or Argo CD app so a merge results in a rollout, not a manual `oc apply`
+  - Run a smoke test in CI: produce one message, assert the consumer flags it
+
+- [ ] **Add observability**
+  - Expose Prometheus metrics (messages produced/consumed, flagged rate, consumer lag) via `prometheus_client`
+  - Scrape with the OCP user-workload monitoring stack; build one Grafana panel for consumer lag per partition
+  - Consumer lag is the metric that tells you the consumer is falling behind — the one alert worth having early
+
+- [ ] **Security and resource review**
+  - Set CPU/memory requests and limits on both Deployments; without limits one pod can starve the node
+  - Add a NetworkPolicy restricting the namespace to only egress to Confluent and Vault
+  - Confirm the Vault path from Phase 3 is the only source of credentials — no secrets in env, manifests, or images
+
+- [ ] **Document operations**
+  - Runbook: how to scale, how to roll back a bad deploy, how to rotate the Confluent key in Vault, what each alert means
+  - This is the doc your future on-call self needs, not a tutorial
+
+---
+
+#### Option C — Capstone: Tear down and rebuild
+**Goal:** Prove you understand it by rebuilding it without your own help.
 
 - [ ] **Write a README**
   - Architecture diagram in Mermaid (renders in GitHub markdown — easier than maintaining an external draw.io file)
