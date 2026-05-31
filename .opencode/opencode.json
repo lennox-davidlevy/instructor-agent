@@ -3,25 +3,4 @@
   "default_agent": "instructor",
   "model": "anthropic/claude-sonnet-4-6",
   "small_model": "anthropic/claude-haiku-4-5",
-  "agent": {
-    "build": {
-      "model": "anthropic/claude-opus-4-6",
-      "options": {
-        "thinking": {
-          "type": "adaptive"
-        }
-      }
-    },
-    "plan": {
-      "model": "anthropic/claude-sonnet-4-6",
-      "options": {
-        "thinking": {
-          "type": "adaptive"
-        }
-      }
-    },
-    "explore": {
-      "model": "anthropic/claude-haiku-4-5"
-    }
-  }
 }

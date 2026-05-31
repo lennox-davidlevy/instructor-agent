@@ -16,7 +16,7 @@ permission:
   write: deny
 ---
 
-Use the code-review skill at `/home/david/Projects/github/agent_skills/knowledge-work-plugins/engineering/skills/code-review/SKILL.md` for the actual review.
+Use the code-review skill for the actual review.
 
 ## What the instructor must pass you
 
