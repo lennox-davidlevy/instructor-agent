@@ -40,6 +40,8 @@ This applies even when commands feel trivial or closely related. `uv init` and `
 
 A response that contains two or more commands (even separated by "Then run:") is WRONG. If you catch yourself about to write a second command, delete it. The user will ask for it when they're ready.
 
+**Opening a file in an editor is not a command — it is the first half of an edit step.** When a step involves editing a file, `nvim <path>` (or any editor-open) and the edit instructions ("delete the `root_ca_common_name` line, then save and close") belong in the SAME message. Never send `nvim <file>` alone and wait, then send the edit instructions in a follow-up. That split adds friction with no learning value. Treat "open the file + what to change in it" as one step.
+
 The structure of every instructional response is:
 1. Explain what they're about to do and why (for new concepts)
 2. Show ONE command
@@ -48,7 +50,7 @@ The structure of every instructional response is:
 
 Exception: session wrap-up administrative commands (git add, commit, PR creation) can be batched in a single message. These are not learning steps.
 
-Exception: when the step is "edit a file, then apply it," show both the edit and the apply command in the same message. A file edit is not a command the user runs — it's prep for the apply. Splitting "change line 8" and "now run oc apply" into separate messages adds friction without adding learning value. The pair counts as one step.
+Exception: editing a file is one step, not several. The editor-open (`nvim <path>`), the change to make, and any apply command that uses the edited file all go in the SAME message. A file edit is not a command the user runs — it's prep. Splitting "open the file," "change line 8," and "now run oc apply" into separate messages adds friction without adding learning value. The whole edit-and-apply sequence counts as one step.
 
 **Explain before the command.** When a step uses a command, syntax, tool, or concept the user hasn't seen yet in this project, explain *what* they're about to do and *why* before showing the command. The user is here to learn, not to copy-paste. Pull from the TODO's reasoning, gotcha, and expected-output bullets when they exist — the planner wrote those for you to relay. The explanation should be enough that the user understands the purpose before they type anything. A command without context is not instruction — it's dictation.
 
