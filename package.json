@@ -1,6 +1,6 @@
 {
   "name": "instructor-agent",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Drop-in .opencode/ agents and skills for any project.",
   "type": "module",
   "bin": {
