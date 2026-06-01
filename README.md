@@ -7,7 +7,7 @@ Drop-in `.opencode/` agents and skills for any project.
 In any project directory:
 
 ```sh
-bunx github:lennox-davidlevy/instructor-agent#v1.0.8
+bunx github:lennox-davidlevy/instructor-agent#v1.0.10
 ```
 
 Copies `.opencode/agents/` and `.opencode/skills/` into the current working
@@ -25,10 +25,10 @@ directory, skipping any files that already exist.
 
 ```sh
 # Preview without writing
-bunx github:lennox-davidlevy/instructor-agent#v1.0.8 --dry-run
+bunx github:lennox-davidlevy/instructor-agent#v1.0.10 --dry-run
 
 # Refresh everything to the latest versions
-bunx github:lennox-davidlevy/instructor-agent#v1.0.8 --force
+bunx github:lennox-davidlevy/instructor-agent#v1.0.10 --force
 
 # Pin to a specific commit
 bunx github:lennox-davidlevy/instructor-agent#<sha>
@@ -62,7 +62,7 @@ bump, pin to the commit SHA instead: `bunx github:lennox-davidlevy/instructor-ag
 To pull the new versions into a consuming project, re-run with `--force`:
 
 ```sh
-bunx github:lennox-davidlevy/instructor-agent#v1.0.8 --force
+bunx github:lennox-davidlevy/instructor-agent#v1.0.10 --force
 ```
 
 ## Why install from GitHub instead of publishing to npm?
