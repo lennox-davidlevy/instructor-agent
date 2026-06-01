@@ -6,7 +6,7 @@ description: >-
   behavior, check official syntax or config options, or confirm how something
   actually works rather than relying on training data.
 mode: subagent
-model: anthropic/claude-sonnet-4-6
+model: anthropic/claude-opus-4-6
 options:
   thinking:
     type: adaptive
